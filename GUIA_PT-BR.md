@@ -1,6 +1,6 @@
 # Guia rápido: versão brasileira (Gupy)
 
-Esta branch (`template-generico`) é o [ai-job-search](https://github.com/ai-job-search-dev/ai-job-search) adaptado para o mercado brasileiro. Os dados de quem usou a primeira versão foram tirados e trocados por campos `[ENTRE_COLCHETES]` para você preencher com os seus.
+Esta versão (branch `main`) é o [ai-job-search](https://github.com/ai-job-search-dev/ai-job-search) adaptado para o mercado brasileiro. Os dados de quem usou a primeira versão foram tirados e trocados por campos `[ENTRE_COLCHETES]` para você preencher com os seus.
 
 ## O que mudou em relação ao original
 
@@ -15,9 +15,9 @@ Esta branch (`template-generico`) é o [ai-job-search](https://github.com/ai-job
 
 ## Como usar com os seus dados
 
-1. **Clone só esta branch e mantenha o seu clone privado** (ele vai guardar telefone, e-mail e o seu histórico de candidaturas):
+1. **Clone o repositório e mantenha o seu clone privado** (ele vai guardar telefone, e-mail e o seu histórico de candidaturas):
    ```bash
-   git clone -b template-generico https://github.com/anthonyDev01/ai-job-search
+   git clone https://github.com/anthonyDev01/ai-job-search
    ```
 2. **Instale as ferramentas:** [Claude Code](https://claude.com/claude-code), [bun](https://bun.sh), Python 3 e, se quiser CV adaptado por vaga, um LaTeX com `lualatex` (MiKTeX no Windows). Depois:
    ```bash
