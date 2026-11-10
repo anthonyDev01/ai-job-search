@@ -1,3 +1,5 @@
+> 🇧🇷 **Versão brasileira (branch `template-generico`):** portal Gupy, consultas em português e respostas padrão para formulários. Comece pelo [GUIA_PT-BR.md](GUIA_PT-BR.md).
+
 <p align="center">
   <img src="assets/readme/hero.svg" alt="AI Job Search. Pip the courier bird carries an application along a flight path to its destination. The job search that runs on your machine." width="100%">
 </p>

@@ -159,6 +159,7 @@ Escape these wherever they appear in body text:
 - Same template structure, just write content in the posting's language
 - Adjust date format to local convention
 - Adjust closing to local convention (e.g. "Med venlig hilsen," for Danish)
+- Portuguese (Brazil): salutation "Prezados(as)," / "Prezada equipe de recrutamento da [Empresa],", closing "Atenciosamente,", sign-off "Fico à disposição para uma conversa." in place of "I look forward to hearing from you.", date in the form "5 de novembro de 2026"
 
 ## Checklist Before Finalizing
 - [ ] No em-dashes (use commas or periods instead)

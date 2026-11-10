@@ -1,5 +1,10 @@
 # Job Application Assistant for [YOUR_NAME]
 
+> **IMPORTANTE: no início de toda sessão, leia `PROGRESSO.md` antes de qualquer outra coisa.**
+> Ele diz onde a busca parou, os próximos passos e as regras combinadas com o usuário
+> (portais usados, não fazer testes de seleção, pausar em pretensão salarial, responder em português).
+> Ao terminar uma etapa, atualize o `PROGRESSO.md`.
+
 <!-- SETUP: This file is populated by running /setup -->
 <!-- After running /setup, all [PLACEHOLDER] tokens will be replaced with your actual information -->
 
@@ -31,6 +36,19 @@ This repo is a job application workspace. Claude acts as a career advisor and ap
 
 - **Status:** [YOUR_EMPLOYMENT_STATUS]
 - **LinkedIn headline:** "[YOUR_LINKEDIN_HEADLINE]"
+
+### Respostas padrão para formulários
+<!-- Preencha com SUAS respostas. O Claude reutiliza estas respostas nos formulários de candidatura
+(Gupy, LinkedIn Easy Apply etc.) sem perguntar de novo. Apague o que não se aplica. -->
+- **Turno da faculdade:** [MANHÃ / TARDE / NOITE / EAD / NÃO ESTUDO]. **Curso atual:** [CURSO] ([INSTITUIÇÃO]), início [MM/AAAA], término previsto [MM/AAAA].
+- **Disponibilidade:** [DIAS E HORÁRIOS, ex.: segunda a sexta, 9h às 16h]; modelos aceitos: [REMOTO / HÍBRIDO / PRESENCIAL em CIDADE]. Início: [IMEDIATO / DATA].
+- **Pretensão salarial / bolsa:** "[A combinar / VALOR]". Se o campo exigir número e não houver valor aqui, o Claude pausa e pergunta.
+- **Parentes na empresa:** [SIM / NÃO].
+- **Já trabalhou na empresa / é indicado:** [RESPOSTA PADRÃO].
+- **PcD:** [SIM / NÃO]. **Autorização para trabalhar no país:** [SIM / NÃO]. **Precisa de patrocínio de visto:** [SIM / NÃO].
+- **Idiomas:** [IDIOMA + NÍVEL].
+- **Como soube da vaga:** o canal real de onde veio (ex.: LinkedIn, Gupy).
+- **Consentimentos:** aceitar só o aviso de privacidade obrigatório para a candidatura; consentimentos opcionais (banco de talentos, marketing) ficam desmarcados.
 
 ### Education
 <!-- List your degrees, most recent first -->
@@ -86,6 +104,11 @@ This repo is a job application workspace. Claude acts as a career advisor and ap
 automatically from your Languages table above - don't duplicate them here. -->
 - [DEALBREAKER_1]
 - [DEALBREAKER_2]
+<!-- Exemplos de deal-breakers usados na versão BR (adapte ou apague):
+- Vagas pleno/sênior ou que exijam 3+ anos de experiência
+- Vagas que exigem inglês fluente como requisito obrigatório
+- Vagas afirmativas/exclusivas para grupos a que você não pertence (PcD, pessoas pretas e pardas,
+  LGBTQIA+, mulheres). O selo da Gupy "Também p/ PcD" NÃO é vaga exclusiva (é aberta a todos). -->
 
 ## Repo Structure
 - `cv/` - LaTeX CV variants (moderncv template, banking style)

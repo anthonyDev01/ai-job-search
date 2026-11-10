@@ -1,80 +1,105 @@
 # Search Queries for Job Scraper
 
-<!-- SETUP: Customize these queries based on your skills, target roles, and location -->
+<!-- Versão BR (Gupy, consultas em português). Rode /setup para personalizar com o seu CV, ou preencha os [PLACEHOLDERS] à mão. -->
 
 ## Installed portal CLIs (primary for `/scrape`)
 
-`/scrape` discovers every portal skill under `.agents/skills/*/SKILL.md` and runs its CLI first. Shipped country-agnostic CLIs include `linkedin-search` and `freehire-search`; Danish demos and any skill you add with `/add-portal` are included the same way. You do **not** need a matching `site:` line below for those CLIs to run.
+`/scrape` discovers every portal skill under `.agents/skills/*/SKILL.md` and runs its CLI first. Danish demos and any skill you add with `/add-portal` are included the same way. You do **not** need a matching `site:` line below for those CLIs to run.
 
-The `site:` query templates in this file are the **WebSearch fallback** — for portals without a CLI, company career pages, or when a CLI fails.
+**Portal configuration (versão BR):** the market is Brazil and the **only** portal in use is **Gupy** (`gupy-search`, under `.agents/skills/gupy-search/`). `linkedin-search` and `freehire-search` are set to `enabled: false`; the four Danish demos (Jobindex, Jobbank, Jobdanmark, Jobnet) ship disabled and stay disabled.
 
-**Language scope:** write every query category in every language listed in your CLAUDE.md Languages table (typically 1-2, sometimes more). A posting requiring a language you have *not* declared, as a job condition, is excluded before scoring; a posting requiring a *higher level* than you declared in a language you *do* work in is flagged for your own judgment, not excluded — see `04-job-evaluation.md`'s Language Gate, the single source of truth for this rule. Translate each category's keywords rather than machine-translating word-for-word (e.g. "Frontend Developer" -> "Desarrollador Frontend", not a literal word-for-word translation) if you work in more than one language.
+**gupy-search flags:** `--query` (the search term; one query string per term below), `--jobage` (recency, use 14 to match the Date Filter), `--state`, `--city`, `--remote`, `--type`, `--page`, `--limit`, `--format`. Gupy ANDs its filters, so "[SEU ESTADO] **or** remoto" is **two calls per term**: one with `--state "[SEU ESTADO]"` (then keep nearby cities client-side, see Location Filter) and one with `--remote remote`. Add `--type internship` for "estágio ..." terms only when a term returns too much noise. `gupy-search`'s own `SKILL.md` is the source of truth for the exact invocation; never pass a flag it does not document. Gupy matches the query against the job name *and* description and treats multi-word terms like a phrase, so keep terms to 1-3 words.
+
+The `site:` query templates in this file are the **WebSearch fallback** — for when the Gupy CLI fails, or for company career pages.
+
+**Language scope:** queries are written in **Portuguese only**. Gupy postings for this market are written in Portuguese, and English-language postings usually require fluent English. English role words that Brazilian postings use verbatim (full stack, front-end, back-end, BI, cloud) are kept as they appear in Portuguese ads. A posting requiring a language not declared, as a job condition, is excluded before scoring; a posting requiring a *higher level* of English is flagged — see `04-job-evaluation.md`'s Language Gate, the single source of truth for this rule.
 
 ## Search Sites
 
 Primary (your market's job boards - scaffold one with `/add-portal`):
-- **[YOUR_JOB_BOARD]** - your market's largest general job board
-- **linkedin.com/jobs** - LinkedIn job listings (filter: [YOUR_COUNTRY] / [YOUR_CITY]); also covered by `linkedin-search` CLI
-- **[YOUR_INDUSTRY_JOB_BOARD]** - a niche/industry board for your field (optional)
-- **[YOUR_ADDITIONAL_JOB_BOARD]** - another major board for your market (optional)
+- **Gupy** (`portal.gupy.io`; vagas publicadas em `<empresa>.gupy.io/job/...`) - o único portal usado nesta busca; coberto pelo CLI `gupy-search`
+- LinkedIn / freehire: CLIs instalados mas **desabilitados** (`enabled: false`); mude para `true` no `SKILL.md` de cada um para reativar
 
 Secondary (company career pages via Google):
-- Direct Google searches with `site:` filters for known target companies
+- Direct Google searches with `site:` filters for known target companies ([SUAS EMPRESAS-ALVO])
 
 ## Query Categories
 
-Queries are grouped by priority. Write **each category in every language from your Languages table** (see Language scope above). Combine each query with your location terms (e.g. your city, region, or metro area) where the site supports it.
+<!-- PREENCHA COM AS SUAS ÁREAS. O /setup reescreve esta seção a partir do seu CV; os termos abaixo
+são EXEMPLOS (perfil de estágio/júnior em tecnologia). Troque pelos cargos que você busca. -->
 
-**Organize by function, not job title.** The same underlying work carries different titles across companies and markets (a "Data Scientist" role at one employer may be posted as "Insights Analyst" or "Data Consultant" at another). Name each priority category after the function it covers, and list several plausible job titles as query variants within that category rather than betting an entire priority tier on one exact title string.
+Queries are grouped by priority. Each line in the code blocks is one `--query` value for `gupy-search` (run with `--jobage 14`). Location is applied by the filter tiers below, not baked into the term. The `site:` lines are the WebSearch fallback only.
 
-### Priority 1: [YOUR_PRIMARY_ROLE_TYPE]
+**Organize by function, not job title.** The same underlying work carries different titles across companies (estagiário, assistente, analista júnior, desenvolvedor júnior). Each category below covers one function with several title variants.
 
-These match your strongest and most desired career direction.
+**Seniority filter for every category:** [AJUSTE: ex. keep estágio, trainee, júnior and assistente roles; discard pleno/sênior/especialista/lead or anything asking for 3+ anos de experiência]. Discard roles outside your area even if they match a keyword.
 
-```
-site:[YOUR_JOB_BOARD] "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "[YOUR_PRIMARY_JOB_TITLE_2]" [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "[YOUR_KEY_SKILL]" [YOUR_CITY]
-site:linkedin.com/jobs "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_COUNTRY]
-```
+### Priority 1: [SUA ÁREA PRINCIPAL] (exemplo: desenvolvimento de software)
 
-### Priority 2: [YOUR_DOMAIN_EXPERTISE]
-
-These match your domain expertise.
+Por que esta área: [RESUMO DA SUA BASE NO CV].
 
 ```
-site:[YOUR_JOB_BOARD] [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY] OR [YOUR_REGION]
-site:[YOUR_JOB_BOARD] [YOUR_DOMAIN_KEYWORD_2] [YOUR_COUNTRY]
-site:linkedin.com/jobs [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY] [YOUR_COUNTRY]
+desenvolvedor júnior
+estágio desenvolvimento
+estágio programação
+java júnior
+react júnior
+full stack júnior
 ```
 
-### Priority 3: [YOUR_ADJACENT_ROLE_TYPE]
-
-Adjacent roles you could pivot into.
-
+WebSearch fallback:
 ```
-site:[YOUR_JOB_BOARD] "[YOUR_ADJACENT_TITLE_1]" [YOUR_KEY_SKILL] [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "[YOUR_ADJACENT_TITLE_2]" [YOUR_KEY_SKILL] [YOUR_CITY]
+site:gupy.io "desenvolvedor júnior" [SUA CIDADE]
+site:gupy.io "estágio" "desenvolvimento" [SUA CIDADE]
 ```
 
-### Priority 4: Broader Technical / Consulting
-
-Wider net for general technical roles.
+### Priority 2: [SUA SEGUNDA ÁREA] (exemplo: dados)
 
 ```
-site:[YOUR_JOB_BOARD] [YOUR_KEY_SKILL] developer [YOUR_CITY]
-site:linkedin.com/jobs "[YOUR_KEY_SKILL] developer" [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "technical consultant" [YOUR_DOMAIN] [YOUR_CITY]
+estágio dados
+estágio análise de dados
+analista de dados júnior
+estágio BI
+estágio sql
+```
+
+WebSearch fallback:
+```
+site:gupy.io "estágio em dados" [SUA CIDADE]
+```
+
+### Priority 3: [SUA TERCEIRA ÁREA] (exemplo: cloud)
+
+```
+estágio cloud
+cloud júnior
+aws júnior
+azure júnior
 ```
 
 ## Location Filter
 
-When evaluating results, verify the job location is within reasonable commute distance from your home. Define acceptable areas:
-- [YOUR_CITY] and surrounding areas
-- [ACCEPTABLE_AREA_1]
-- [ACCEPTABLE_AREA_2]
-- [BORDERLINE_AREA] (borderline - ~X min by transit)
-- [TOO_FAR_AREA] (too far)
+Candidate lives in **[SUA CIDADE] - [UF]**. Filter Gupy results client-side on city / state / `workplaceType`:
+- **Ideal:** [SUA CIDADE] (presencial ou híbrido)
+- **Ideal:** região metropolitana / cidades próximas: [LISTE AS CIDADES]
+- **Acceptable:** 100% remoto no Brasil (qualquer cidade-sede)
+- **Borderline:** presencial/híbrido em outras cidades ou estados - sinalizar e deixar o usuário decidir
+- **Too far:** vagas fora do Brasil ou remoto internacional
+
+## Affirmative-action Filter (opcional)
+
+<!-- Use se você NÃO pertence aos grupos abaixo e quer descartar vagas exclusivas. Ajuste a lista aos
+grupos a que você não pertence, ou apague esta seção inteira se não quiser o filtro. -->
+Descartar vagas afirmativas ou exclusivas para grupos a que o candidato não pertence, olhando o título **e** a descrição. Termos que indicam isso:
+- "afirmativa" ou "afirmativo";
+- "exclusiva" ou "exclusivo" para PcD ou para pessoas com deficiência;
+- "pessoas negras", "pretas e pardas";
+- "LGBT", "LGBTQIA+", "pessoas trans";
+- "exclusiva para mulheres".
+
+Na dúvida, sinalizar em vez de manter em silêncio.
+
+**Não confundir:** o selo "Também p/ PcD" da Gupy e frases como "vaga também para PcD" ou "aberta a todos" **não** tornam a vaga exclusiva. Essas continuam valendo.
 
 ## Language Filter
 
@@ -87,4 +112,5 @@ Only include jobs posted within the last 14 days, or with an application deadlin
 ## Adapting Queries
 
 If the user specifies a focus area, select queries from the matching category and also generate 2-3 custom queries for that focus. For example:
-- "/scrape [focus_area]" -> relevant category queries + custom focus-specific queries
+- "/scrape dados" -> the matching category + custom terms such as "estágio power bi" or "estágio engenharia de dados"
+- "/scrape java" -> the matching category + custom terms such as "estágio back-end"

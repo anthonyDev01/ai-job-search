@@ -143,6 +143,8 @@ When the role sits outside your home domain, **lead with the domain-transfer arg
 **For [YOUR_SECONDARY_ROLE_TYPE] roles:**
 > [YOUR_PROFILE_STATEMENT_TEMPLATE_2]
 
+**Portuguese section headings (if your CV language is Portuguese):** `Resumo Profissional` (if a heading is used for the profile), `Competências Principais`, `Experiência Profissional`, `Formação Acadêmica`, `Cursos Complementares`, `Idiomas`, `Informações Adicionais`, `Referências`, with `Disponíveis mediante solicitação.` under References. Write C# as `C\#` in LaTeX.
+
 Statements labeled *[Used for: <company>_<role>]* were extracted from archived application drafts by `/setup` Path A. They are **phrasing references, never fact sources**: when drafting from one, every factual claim still comes from `01-candidate-profile.md` - a past tailored draft does not vouch for its own accuracy.
 
 ### Core Competencies / Skills Section (Best Practice)
